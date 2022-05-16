@@ -11,14 +11,16 @@ import java.util.Scanner;
 class LoL_char {
   //TODO:
   // 사용자의 입력을 받기위한 객체 생성을 진행합니다.
-
+  Scanner sc = new Scanner(System.in);
   // 게임에 필요한 변수 타입을 사전 정의합니다.
+  String[] info;
 
   /**
    * @user_info : 생성된 유닛의 정보를 담는 메서드
    * @this : 해당 메서드가 입력받은 변수들은 this 를
    * */
   void user_info(String name, String ad, String def, String hp) {
+    this.info = new String[]{name, ad, def, hp};
   }
 
   /**
@@ -28,10 +30,20 @@ class LoL_char {
   String[] user_create() {
     //TODO:
     //입력 메시지와 함께, 게임에 필요한 유닛의 정보를 입력받습니다.
+    System.out.println("[시스템] 유닛 [이름] 을 입력해 주세요 :");
+    String name = sc.nextLine();
+    System.out.println("[시스템] 유닛 [공격력] 을 입력해 주세요 : (Ex 50)");
+    String ad = sc.nextLine();
+    System.out.println("[시스템] 유닛 [방어력] 을 입력해 주세요 : (Ex 1)");
+    String def = sc.nextLine();
+    System.out.println("[시스템] 유닛 [체력] 을 입력해 주세요 : (Ex 100)");
+    String hp = sc.nextLine();
 
     // 입력된 값은 user_info()에 전달하여 줍니다.
+    user_info(name, ad, def, hp);
 
     // 유저마다의 객체 생성을 위해 반환 과정 또한 정의하여 줍니다.
+    return info;
   }
 
   /**
@@ -39,6 +51,11 @@ class LoL_char {
    * */
   void user_print(String[] user) {
     //TODO:
+    System.out.println("[안내] 생성된 유닛 정보는 다음과 같습니다.");
+    System.out.println("[안내] "+user[0]+" 유닛이 게임에 참여하였습니다.");
+    System.out.println("[공격력] : " + user[1]);
+    System.out.println("[방어력] : " + user[2]);
+    System.out.println("[체력] : " + user[3]);
   }
 
   /**
@@ -48,9 +65,12 @@ class LoL_char {
   int[] user_info_int(String[] info) {
     //TODO:
     // 같은 형식의 반환을 위해 배열 선언
-
+    int[] user_info_int = new int[info.length-1];
     // 배열의 값을 하나씩 꺼내 정수형태로 전환합니다.
-
+    for (int i=1; i<info.length; i++){
+      user_info_int[i-1] = Integer.parseInt(info[i]);
+    }
+    return user_info_int;
   }
 
 
@@ -63,4 +83,21 @@ class LoL_char {
     // 조건 2. 적군 체력이 0 이하가 아니라면 공격을 성공적으로 수행합니다.
     // 공격 정책 수식 : 적군 체력 -= 아군 유닛 공격력 / 적군 유닛 방어력
     //TODO:
+
+    int result = enemy[2];
+    while (result > 0){
+      System.out.println("----------------------------------------");
+      System.out.printf("[안내] [%s]유닛이 [공격] 하였습니다. \n", this.info[0]);
+      result -= (me_info_int[0] / enemy[1]) ;
+      if (result <= 0) break;
+      System.out.println("[안내] 상대 유닛의 남은 [체력]은 " + result + "입니다.");
+      System.out.println("----------------------------------------");}
+
+    System.out.println("[안내] 상대 유닛의 남은 [체력]은 0 입니다.");
+    System.out.println("----------------------------------------");
+    System.out.println("[안내] 더 이상 공격할 수 없습니다.");
+
+    System.out.println("[안내] 상대 유닛이 제거되었습니다.");
+
+  }
 }
