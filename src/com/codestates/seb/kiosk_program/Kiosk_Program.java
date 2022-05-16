@@ -5,13 +5,17 @@ import java.util.Scanner;
 public class Kiosk_Program {
   //TODO:
   // 메뉴 입력 및 사용자의 수량을 입력하기 위해 Scanner 객체 생성
-
+  static Scanner sc = new Scanner(System.in);
   /**
    * @menu_n_cost : 메뉴의 가격을 정의 합니다.
    * 메뉴의 가격은 변하지 않습니다.
    * 해당 기능은 자바독(javadoc) 기능입니다.
    */
   //TODO:
+  static int menu_1_cost = 1000;
+  static int menu_2_cost = 1500;
+  static int menu_3_cost = 1000;
+  static int menu_4_cost = 2000;
 
   /**
    * 프로그램의 시작을 알리는 메서드입니다.
@@ -19,6 +23,8 @@ public class Kiosk_Program {
    */
   static void input_print() {
     //TODO:
+    System.out.println("[안내]안녕하세요. 김밥천국에 오신 것을 환영합니다.");
+    System.out.println("-------------------------");
   }
 
   /**
@@ -65,15 +71,27 @@ public class Kiosk_Program {
   static void cost(int number) {
     // 안내 문구를 출력합니다.
     //TODO:
+    System.out.println("-------------------------");
+    System.out.println("[안내]선택하신 메뉴의 수량을 입력하여 주세요.");
+    System.out.println("(※ 최대 주문 가능 수량 : 99)");
 
     // 입력받은 수량을 변수에 저장합니다.
     //TODO:
+    int num = sc.nextInt();
 
     // 조건에 따라 문구 출력, 재입력을 진행합니다.
     // 조건은 다음과 같습니다.
     // 0 이하 || 99 초과
     // 두 조건 중 하나라도 참인경우 경고 문구 출력과 함께 다시 수량을 입력받을 수 있도록 합니다.
     //TODO:
+    if (num <= 0 || num > 99){
+      System.out.printf("[경고]%d개는 입력하실 수 없습니다.\n", num);
+      System.out.println("[경고]수량 선택 화면으로 돌아갑니다.");
+      cost(number);
+    }
+    else{
+      output_print(number * num);
+    }
   }
 
   /**
@@ -81,13 +99,12 @@ public class Kiosk_Program {
    */
   static void output_print(int result) {
     //TODO:
+    System.out.println("[안내]주문하신 메뉴의 총 금액은" +result + "원 입니다.");
+    System.out.println("[안내]이용해 주셔서 감사합니다");
   }
 
   /**
    * @main() 메서드 동작
    * 프로그램 실행 -> 메뉴 입력 -> 수량 입력 및 가격 계산 -> 가격 출력
    */
-  public static void main(String[] args) {
-    //TODO:
-  }
 }
